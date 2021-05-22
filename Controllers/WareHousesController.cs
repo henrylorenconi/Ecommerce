@@ -1,4 +1,5 @@
-﻿using ECommerce.Models;
+﻿using ECommerce.Classes;
+using ECommerce.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -12,6 +13,15 @@ namespace ECommerce.Controllers
     public class WareHousesController : Controller
     {
         private EcommerceContext db = new EcommerceContext();
+
+        //Controle de List View em Cascata
+
+        public JsonResult GetCities(int departmentId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var cities = db.Cities.Where(m => m.DepartamentsId == departmentId);
+            return Json(cities);
+        }
 
         // GET: WareHouses
         public ActionResult Index()
@@ -45,9 +55,8 @@ namespace ECommerce.Controllers
         // GET: WareHouses/Create
         public ActionResult Create()
         {
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "Name");
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "Name");
-            ViewBag.DepartamentsId = new SelectList(db.Departaments, "DepartamentsId", "Name");
+            ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name");
+            ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name");
             return View();
         }
 
@@ -56,7 +65,7 @@ namespace ECommerce.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "WareHouseId,CompanyId,Name,Phone,Address,DepartamentsId,CityId")] WareHouse wareHouse)
+        public ActionResult Create(WareHouse wareHouse)
         {
             if (ModelState.IsValid)
             {
@@ -65,9 +74,8 @@ namespace ECommerce.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "Name", wareHouse.CityId);
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "Name", wareHouse.CompanyId);
-            ViewBag.DepartamentsId = new SelectList(db.Departaments, "DepartamentsId", "Name", wareHouse.DepartamentsId);
+            ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name", wareHouse.CityId);
+            ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name", wareHouse.DepartamentsId);
             return View(wareHouse);
         }
 
@@ -83,9 +91,8 @@ namespace ECommerce.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "Name", wareHouse.CityId);
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "Name", wareHouse.CompanyId);
-            ViewBag.DepartamentsId = new SelectList(db.Departaments, "DepartamentsId", "Name", wareHouse.DepartamentsId);
+            ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name", wareHouse.CityId);
+            ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name", wareHouse.DepartamentsId);
             return View(wareHouse);
         }
 
@@ -94,7 +101,7 @@ namespace ECommerce.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "WareHouseId,CompanyId,Name,Phone,Address,DepartamentsId,CityId")] WareHouse wareHouse)
+        public ActionResult Edit(WareHouse wareHouse)
         {
             if (ModelState.IsValid)
             {
@@ -102,9 +109,8 @@ namespace ECommerce.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "Name", wareHouse.CityId);
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "Name", wareHouse.CompanyId);
-            ViewBag.DepartamentsId = new SelectList(db.Departaments, "DepartamentsId", "Name", wareHouse.DepartamentsId);
+            ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name", wareHouse.CityId);
+            ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name", wareHouse.DepartamentsId);
             return View(wareHouse);
         }
 

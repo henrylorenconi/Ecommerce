@@ -65,7 +65,7 @@ namespace ECommerce.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "WareHouseId,CompanyId,Name,Phone,Address,DepartamentsId,CityId")] WareHouse wareHouse)
+        public ActionResult Create(WareHouse wareHouse)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +101,7 @@ namespace ECommerce.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "WareHouseId,CompanyId,Name,Phone,Address,DepartamentsId,CityId")] WareHouse wareHouse)
+        public ActionResult Edit(WareHouse wareHouse)
         {
             if (ModelState.IsValid)
             {

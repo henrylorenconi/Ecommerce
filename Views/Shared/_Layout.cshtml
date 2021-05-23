@@ -35,19 +35,10 @@
                                 <li>@Html.ActionLink("Departamentos", "Index", "Departaments")</li>
                                 <li>@Html.ActionLink("Usuários", "Index", "Users")</li>
                             </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Produtos<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Armazéns", "Index", "WareHouses")</li>
-                                <li>@Html.ActionLink("Categorias", "Index", "Categories")</li>
-                                <li>@Html.ActionLink("Impostos", "Index", "Taxes")</li>
-                                <li>@Html.ActionLink("Produtos", "Index", "Products")</li>                               
-                            </ul>
-                        </li>                     
+                        </li>                   
                     }
 
-                    @if (User.IsInRole("User"))
+                    @if (User.IsInRole("User") || (User.IsInRole("Admin"))
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Produtos<b class="caret"></b></a>

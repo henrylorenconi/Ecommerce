@@ -55,9 +55,20 @@ namespace ECommerce.Controllers
         // GET: WareHouses/Create
         public ActionResult Create()
         {
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var ware = new WareHouse
+            {
+                CompanyId = user.CompanyId
+            };
+
             ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name");
             ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name");
-            return View();
+            return View(ware);
         }
 
         // POST: WareHouses/Create

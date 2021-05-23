@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace ECommerce.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User , Admin")]
     public class DepartamentsController : Controller
     {
         private EcommerceContext db = new EcommerceContext();

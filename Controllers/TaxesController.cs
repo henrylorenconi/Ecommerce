@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace ECommerce.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User , Admin")]
 
     public class TaxesController : Controller
     {

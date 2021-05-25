@@ -42,6 +42,10 @@ namespace ECommerce.Models
         [Range(1, double.MaxValue, ErrorMessage = "Selecione uma categoria!")]
         public int CategoryId { get; set; }
 
+        [Display(Name = "Estoque")]
+        //[DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
+        public double Stock { get { return Inventory.Sum(i => i.Stock); } }
+
         [Display(Name = "Valor")]
         [Required(ErrorMessage = "O campo de valor é obrigatório!")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]

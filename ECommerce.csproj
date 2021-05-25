@@ -202,7 +202,6 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Company.cs" />
-    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Departaments.cs" />
     <Compile Include="Models\EcommerceContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />

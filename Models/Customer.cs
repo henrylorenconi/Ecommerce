@@ -48,7 +48,7 @@ namespace ECommerce.Models
         [Required(ErrorMessage = "O campo Departamento é obrigatório!")]
         [Range(1, double.MaxValue, ErrorMessage = "Você deve selecionar um Departamento!")]
         [Display(Name = "Departmento")]
-        public int DepartmentId { get; set; }
+        public int DepartamentsId { get; set; }
 
         [Required(ErrorMessage = "O campo Cidade é obrigatório!")]
         [Range(1, double.MaxValue, ErrorMessage = "Você deve selecionar uma Cidade!")]

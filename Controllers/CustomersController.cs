@@ -1,16 +1,26 @@
-﻿using ECommerce.Models;
+﻿using ECommerce.Classes;
+using ECommerce.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using static ECommerce.Classes.UserHelper;
 
 namespace ECommerce.Controllers
-
 {
-    [Authorize(Roles = "Customer")]
+    [Authorize(Roles = "User")]
     public class CustomersController : Controller
     {
         private EcommerceContext db = new EcommerceContext();
+
+
+        //CONTROLE DE LIST VIEW EM CASCATA
+        public JsonResult GetCities(int departmentId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var cities = db.Cities.Where(c => c.DepartamentsId == departmentId);
+            return Json(cities);
+        }
 
         // GET: Customers
         public ActionResult Index()
@@ -38,29 +48,38 @@ namespace ECommerce.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "Name");
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "Name");
-            ViewBag.DepartamentsId = new SelectList(db.Departaments, "DepartamentsId", "Name");
-            return View();
+            ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name");
+
+            ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name");
+
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+
+            var customer = new Customer
+            {
+                CompanyId = user.CompanyId
+            };
+
+            return View(customer);
         }
 
         // POST: Customers/Create
-        // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
-        // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerId,CompanyId,UserName,FirstName,LastName,Phone,Address,DepartamentsId,CityId")] Customer customer)
+        public ActionResult Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
                 db.Customers.Add(customer);
                 db.SaveChanges();
+                UsersHelper.CreateUserASP(customer.UserName, "Customer");
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "Name", customer.CityId);
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "Name", customer.CompanyId);
-            ViewBag.DepartamentsId = new SelectList(db.Departaments, "DepartamentsId", "Name", customer.DepartamentsId);
+            ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name");
+
+            ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name");
             return View(customer);
         }
 
@@ -76,18 +95,18 @@ namespace ECommerce.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "Name", customer.CityId);
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "Name", customer.CompanyId);
-            ViewBag.DepartamentsId = new SelectList(db.Departaments, "DepartamentsId", "Name", customer.DepartamentsId);
+            ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name");
+
+            ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name");
             return View(customer);
         }
 
         // POST: Customers/Edit/5
-        // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
-        // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerId,CompanyId,UserName,FirstName,LastName,Phone,Address,DepartamentsId,CityId")] Customer customer)
+        public ActionResult Edit(Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -95,9 +114,9 @@ namespace ECommerce.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CityId = new SelectList(db.Cities, "CityId", "Name", customer.CityId);
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "Name", customer.CompanyId);
-            ViewBag.DepartamentsId = new SelectList(db.Departaments, "DepartamentsId", "Name", customer.DepartamentsId);
+            ViewBag.CityId = new SelectList(CombosHelper.GetCities(), "CityId", "Name");
+
+            ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name");
             return View(customer);
         }
 
@@ -121,9 +140,11 @@ namespace ECommerce.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
             Customer customer = db.Customers.Find(id);
             db.Customers.Remove(customer);
             db.SaveChanges();
+            UsersHelper.DeleteUser(user.UserName);
             return RedirectToAction("Index");
         }
 

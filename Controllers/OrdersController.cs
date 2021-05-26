@@ -1,4 +1,5 @@
-﻿using ECommerce.Models;
+﻿using ECommerce.Classes;
+using ECommerce.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -38,8 +39,8 @@ namespace ECommerce.Controllers
         // GET: Orders/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "UserName");
-            ViewBag.StateId = new SelectList(db.States, "StateId", "Description");
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            ViewBag.CustomerId = new SelectList(CombosHelper.GetCustomer(user.CompanyId), "CustomerId", "FullName");
             return View();
         }
 
@@ -57,8 +58,8 @@ namespace ECommerce.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "UserName", orders.CustomerId);
-            ViewBag.StateId = new SelectList(db.States, "StateId", "Description", orders.StateId);
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            ViewBag.CustomerId = new SelectList(CombosHelper.GetCustomer(user.CompanyId), "CustomerId", "FullName");
             return View(orders);
         }
 
@@ -74,8 +75,8 @@ namespace ECommerce.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "UserName", orders.CustomerId);
-            ViewBag.StateId = new SelectList(db.States, "StateId", "Description", orders.StateId);
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            ViewBag.CustomerId = new SelectList(CombosHelper.GetCustomer(user.CompanyId), "CustomerId", "FullName");
             return View(orders);
         }
 
@@ -92,8 +93,8 @@ namespace ECommerce.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "UserName", orders.CustomerId);
-            ViewBag.StateId = new SelectList(db.States, "StateId", "Description", orders.StateId);
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            ViewBag.CustomerId = new SelectList(CombosHelper.GetCustomer(user.CompanyId), "CustomerId", "FullName");
             return View(orders);
         }
 

@@ -17,5 +17,7 @@ namespace ECommerce.Models
         [Display(Name = "Status do pedido")]
         [Index("State_Description_Index", IsUnique = true)]
         public string Description { get; set; }
+
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

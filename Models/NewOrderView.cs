@@ -13,9 +13,9 @@ namespace ECommerce.Models
         [Display(Name = "Cliente")]
         public int CustomerId { get; set; }
 
-        [Required(ErrorMessage = "O campo de data deve ser preenchido!")]
-        [DataType(DataType.Date)]
         [Display(Name = "Data")]
+        [Required(ErrorMessage = "O campo Data deve ser preenchido!")]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 

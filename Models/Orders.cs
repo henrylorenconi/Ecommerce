@@ -35,5 +35,6 @@ namespace ECommerce.Models
 
         public virtual State State { get; set; }
 
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }

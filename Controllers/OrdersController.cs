@@ -6,14 +6,17 @@ using System.Web.Mvc;
 
 namespace ECommerce.Controllers
 {
+    [Authorize(Roles = "User , Admin")]
     public class OrdersController : Controller
     {
+
         private EcommerceContext db = new EcommerceContext();
 
         // GET: Orders
         public ActionResult Index()
         {
-            var orders = db.Orders.Include(o => o.Customer).Include(o => o.State);
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            var orders = db.Orders.Where(c => c.CompanyId == user.CompanyId).Include(o => o.Customer).Include(o => o.State);
             return View(orders.ToList());
         }
 

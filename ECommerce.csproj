@@ -211,6 +211,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NewOrderView.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\OrderDetailTmp.cs" />
     <Compile Include="Models\Orders.cs" />

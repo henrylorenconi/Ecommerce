@@ -15,7 +15,7 @@ namespace ECommerce.Models
 
         [Required(ErrorMessage = "O campo nome é obrigatório!")]
         [MaxLength(50, ErrorMessage = "O campo recebe no máximo 50 caracteres!")]
-        [Display(Name = "Nome")]
+        [Display(Name = "Região")]
         [Index("Departament_Name_Index", IsUnique = true)]
         public String Name { get; set; }
 

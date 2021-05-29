@@ -3,12 +3,13 @@
 @{
     ViewBag.Title = "Excluir cidade";
 }
-
+<br />
 <h2>Excluir Cidade</h2>
-
-<h3>Você tem certeza que deseja excluir essa cidade?</h3>
+<br />
+<h3>Você tem certeza que deseja excluir esta cidade?</h3>
 <div>
     <h4>Esta ação não poderá ser desfeita!</h4>
+    <br />
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -31,7 +32,7 @@
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-
+        <br />
         <div class="form-actions no-color">
             <input type="submit" value="Excluir" class="btn btn-danger" /> |
             @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-primary" })

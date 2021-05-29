@@ -3,9 +3,9 @@
 @{
     ViewBag.Title = "Detalhes sobre a cidade";
 }
-
+<br />
 <h2>Informações sobre a cidade</h2>
-
+<br />
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -16,7 +16,7 @@
         <dd>
             @Html.DisplayFor(model => model.Departament.Name)
         </dd>
-
+        
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -28,6 +28,8 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.CityId }, new { @class = "btn btn-warning" }) |
-    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-primary" })
+    <br />
+    @Html.ActionLink("Editar", "Edit", new { id = Model.CityId }, new { @class = "btn btn-info" }) |
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary" })
+    <br />
 </p>

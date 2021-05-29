@@ -31,7 +31,7 @@ namespace ECommerce.Models
         [Display(Name = "Endereço")]
         public String Address { get; set; }
 
-        [Display(Name = "Imagem")]
+        [Display(Name = "Logo")]
         [DataType(DataType.ImageUrl)]
         public String Logo { get; set; }
 

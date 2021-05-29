@@ -1,11 +1,11 @@
 ﻿@model ECommerce.Models.NewOrderView
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Criar Nova Ordem";
 }
-
+<br />
 <h2>Nova Ordem</h2>
-
+<br />
 
 @using (Html.BeginForm())
 {
@@ -15,8 +15,6 @@
         <h4>Ordens e Pedidos</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -47,7 +45,7 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Criar Ordem" class="btn btn-success" />
-                        <input type="submit" value="Add Produto" class="btn btn-info" />
+                        <input type="submit" value="Add Produto" class="btn btn-primary" />
                         @Html.ActionLink("Voltar", "Index", new { }, new { @class = "btn btn-danger" })
                     </div>
                 </div>

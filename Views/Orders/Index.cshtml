@@ -1,13 +1,15 @@
 ﻿@model IEnumerable<ECommerce.Models.Orders>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Nova Ordem";
 }
-
-<h2>Index</h2>
+<br />
+<h2>Nova Ordem</h2>
+<br />
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Cadastrar Ordem", "Create", null, new { @class = "btn btn-primary btn-lg" })
+    <br /><br />
 </p>
 <table class="table">
     <tr>
@@ -35,9 +37,9 @@
             @Html.DisplayFor(modelItem => item.Remarks)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OrderId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrderId })
+            @Html.ActionLink("Editar", "Edit", new { id=item.OrderId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.OrderId }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.OrderId }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

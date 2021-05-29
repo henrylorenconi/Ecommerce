@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<ECommerce.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Produtos";
 }
-
+<br />
 <h2>Produtos</h2>
-
+<br />
 <p>
-    @Html.ActionLink("Novo Produto", "Create", new { }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Cadastrar Produto", "Create", new { }, new { @class = "btn btn-primary btn-lg" })
+    <br /><br />
 </p>
 <table class="table">
     <tr>
@@ -59,15 +60,14 @@
         @if (!string.IsNullOrEmpty(item.Image))
         {
             <img src="@Url.Content(item.Image)" alt="Image" style="width:65px;height:65px;max-width: 100%; height: auto;" />
-
         }
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Stock)
     </td>
     <td>
-        @Html.ActionLink("Editar", "Edit", new { id = item.ProductId }, new { @class = "btn btn-warning" }) |
-        @Html.ActionLink("Detalhes", "Details", new { id = item.ProductId }, new { @class = "btn btn-info" }) |
+        @Html.ActionLink("Editar", "Edit", new { id = item.ProductId }, new { @class = "btn btn-info" })<br /><br />
+        @Html.ActionLink("Detalhes", "Details", new { id = item.ProductId }, new { @class = "btn btn-primary" })<br /><br />
         @Html.ActionLink("Excluir", "Delete", new { id = item.ProductId }, new { @class = "btn btn-danger" })
     </td>
 </tr>

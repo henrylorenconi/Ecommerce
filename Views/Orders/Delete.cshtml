@@ -1,14 +1,15 @@
 ﻿@model ECommerce.Models.Orders
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Excluir Ordem";
 }
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<br />
+<h2>Excluir Ordem</h2>
+<br />
+<h3>Tem certeza que deseja excluir esta Ordem?</h3>
 <div>
-    <h4>Orders</h4>
+    <h4>Esta ação não poderá ser desfeita!</h4>
+    <br />
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -47,10 +48,10 @@
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+        <br />
+<div class="form-actions no-color">
+    <input type="submit" value="Excluir" class="btn btn-danger" /> |
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-primary" })
+</div>
     }
 </div>

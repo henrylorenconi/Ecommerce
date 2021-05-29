@@ -1,15 +1,22 @@
 ﻿@model ECommerce.Models.Customer
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes do Cliente";
 }
-
-<h2>Details</h2>
-
+<br />
+<h2>Detalhes sobre o Cliente</h2>
+<br />
 <div>
-    <h4>Customer</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.Name)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.City.Name)
         </dt>
@@ -24,14 +31,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Company.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Department.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Department.Name)
         </dd>
 
         <dt>
@@ -77,6 +76,8 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <br />
+    @Html.ActionLink("Editar", "Edit", new { id = Model.CustomerId }, new { @class = "btn btn-info" }) |
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary" })
+    <br />
 </p>

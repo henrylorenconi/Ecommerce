@@ -1,11 +1,11 @@
 ﻿@model ECommerce.Models.Company
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes sobre a Companhia";
 }
-
+<br />
 <h2>Informações sobre a companhia</h2>
-
+<br />
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -60,6 +60,8 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CompanyId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <br />
+    @Html.ActionLink("Editar", "Edit", new { id = Model.CompanyId }, new { @class = "btn btn-info" }) |
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary" })
+    <br />
 </p>

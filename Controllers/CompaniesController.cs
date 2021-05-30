@@ -77,7 +77,7 @@ namespace ECommerce.Controllers
                     var response = FilesHelper.UploadPhoto(company.LogoFile, folder, file);
                     if (response == true)
                     {
-                        pic = string.Format("{0}/{1}.jpg", folder, file);
+                        pic = string.Format("{0}/{1}", folder, file);
                         company.Logo = pic;
                         db.Entry(company).State = EntityState.Modified;
                         db.SaveChanges();

@@ -74,8 +74,18 @@ namespace ECommerce.Classes
             return tax = tax.OrderBy(c => c.Description).ToList();
         }
 
+        public static List<Customer> GetCustomer(int companyId)
+        {
 
+            var customer = db.Customers.Where(c => c.CompanyId == companyId).ToList();
+            customer.Add(new Customer
+            {
+                CustomerId = 0,
+                FirstName = "[Selecione um Cliente!]"
+            });
 
+            return customer = customer.OrderBy(c => c.FirstName).ThenBy(c => c.LastName).ToList();
+        }
         public void Dispose()
         {
             db.Dispose();

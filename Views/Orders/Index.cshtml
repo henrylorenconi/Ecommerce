@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ECommerce.Models.Orders>
+
+@{
+    ViewBag.Title = "Nova Ordem";
+}
+<br />
+<h2>Nova Ordem</h2>
+<br />
+
+<p>
+    @Html.ActionLink("Cadastrar Ordem", "Create", null, new { @class = "btn btn-primary btn-lg" })
+    <br /><br />
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remarks)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.OrderId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.OrderId }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.OrderId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

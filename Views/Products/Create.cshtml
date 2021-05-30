@@ -1,12 +1,11 @@
 ﻿@model ECommerce.Models.Product
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Cadastrar Produto";
 }
-
+<br />
 <h2>Cadastrar Produto</h2>
-
-
+<br />
 @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
 {
@@ -76,15 +75,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Salvar" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Cancelar", "Index")
-</div>
+<br /><br />
+      <div>
+          @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger" })
+      </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

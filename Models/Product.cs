@@ -70,5 +70,9 @@ namespace ECommerce.Models
         public virtual Category Category { get; set; }
 
         public virtual ICollection<Inventory> Inventory { get; set; }
+
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+
+        public virtual ICollection<OrderDetailTmp> OrderDetailTmp { get; set; }
     }
 }

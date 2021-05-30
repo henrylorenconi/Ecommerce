@@ -15,7 +15,7 @@ namespace ECommerce.Models
 
         [Required(ErrorMessage = "O campo nome é obrigatório!")]
         [MaxLength(50, ErrorMessage = "O campo recebe no máximo 50 caracteres!")]
-        [Display(Name = "Nome")]
+        [Display(Name = "Companhia")]
         [Index("Departament_Name_Index", IsUnique = true)]
         public String Name { get; set; }
 
@@ -31,7 +31,7 @@ namespace ECommerce.Models
         [Display(Name = "Endereço")]
         public String Address { get; set; }
 
-        [Display(Name = "Imagem")]
+        [Display(Name = "Logo")]
         [DataType(DataType.ImageUrl)]
         public String Logo { get; set; }
 
@@ -60,5 +60,9 @@ namespace ECommerce.Models
         public virtual ICollection<Product> Product { get; set; }
 
         public virtual ICollection<WareHouse> WareHouse { get; set; }
+
+        public virtual ICollection<Customer> Customer { get; set; }
+
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿@model ECommerce.Models.Company
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Companhia";
 }
-
-<h2>Editar companhia</h2>
-
+<br />
+<h2>Editar Companhia</h2>
+<br />
 
 @using (Html.BeginForm("Edit", "Companies", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -42,7 +42,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.LogoFile, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.LogoFile, "Logo", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <span class="btn btn-default btn-file">
                 @Html.TextBoxFor(modelo => modelo.LogoFile, new { type = "file" })
@@ -51,7 +51,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DepartamentsId, "DepartamentsId", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.DepartamentsId, "Região", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("DepartamentsId", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.DepartamentsId, "", new { @class = "text-danger" })
@@ -59,7 +59,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CityId, "CityId", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
@@ -68,14 +68,14 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Salvar" class="btn btn-success" />
         </div>
     </div>
 </div>
 }
-
+<br /><br />
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-primary" })
 </div>
 
 @section Scripts {

@@ -1,11 +1,11 @@
 ﻿@model ECommerce.Models.Product
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Produto";
 }
-
+<br />
 <h2>Editar Produto</h2>
-
+<br />
 
 @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -77,14 +77,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Salvar" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
-
+<br /><br />
 <div>
-    @Html.ActionLink("Cancelar", "Index")
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-primary" })
 </div>
 
 @section Scripts {

@@ -1,11 +1,11 @@
 ﻿@model ECommerce.Models.Product
 
 @{
-    ViewBag.Title = "Detalhes Produto";
+    ViewBag.Title = "Detalhes sobre o Produto";
 }
-
+<br />
 <h2>Detalhes do Produto</h2>
-
+<br />
 <div class="form-group">
     <div class="col-md-6">
         <div>
@@ -83,6 +83,7 @@
         </div>
     </div>
     <div class="col-md-6">
+        <hr />
         <h4>Estoque</h4>
         <hr />
         @if (Model.Inventory.Count == 0)
@@ -126,7 +127,9 @@
         }
     </div>
 </div>
-        <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
-            @Html.ActionLink("Back to List", "Index")
-        </p>
+<p>
+    <br />
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ProductId }, new { @class = "btn btn-info" }) |
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary" })
+    <br />
+</p>

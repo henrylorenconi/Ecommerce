@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<ECommerce.Models.Departaments>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Regiões";
 }
-
+<br />
 <h2>Regiões</h2>
-
+<br />
 <p>
-    @Html.ActionLink("Cadastrar região", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Cadastrar Região", "Create", null, new { @class = "btn btn-primary btn-lg" })
+    <br /><br />
 </p>
 <table class="table">
     <tr>
@@ -23,8 +24,8 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.DepartamentsId }, new {@class = "btn btn-warning" }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.DepartamentsId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Editar", "Edit", new { id=item.DepartamentsId }, new {@class = "btn btn-info" }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.DepartamentsId }, new { @class = "btn btn-primary" }) |
             @Html.ActionLink("Excluir", "Delete", new { id=item.DepartamentsId }, new { @class = "btn btn-danger" })
         </td>
     </tr>

@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<ECommerce.Models.WareHouse>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Armazéns";
 }
-
+<br />
 <h2>Armazéns</h2>
-
+<br />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Cadastrar Armazém", "Create", null, new { @class = "btn btn-primary btn-lg" })
+    <br /><br />
 </p>
 <table class="table">
     <tr>
@@ -47,9 +48,9 @@
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.WareHouseId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.WareHouseId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.WareHouseId })
+            @Html.ActionLink("Editar", "Edit", new { id=item.WareHouseId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.WareHouseId }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.WareHouseId }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

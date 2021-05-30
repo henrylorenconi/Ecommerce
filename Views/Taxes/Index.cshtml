@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<ECommerce.Models.Tax>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Taxas";
 }
-
+<br />
 <h2>Taxas</h2>
-
+<br />
 <p>
-    @Html.ActionLink("Cadastrar imposto", "Create", null, new {@class = "btn btn-primary"})
+    @Html.ActionLink("Cadastrar imposto", "Create", null, new {@class = "btn btn-primary btn-lg"})
+    <br /><br />
 </p>
 <table class="table">
     <tr>
@@ -29,8 +30,8 @@
             @Html.DisplayFor(modelItem => item.Rate)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.TaxId }, new { @class = "btn btn-warning" }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.TaxId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Editar", "Edit", new { id=item.TaxId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.TaxId }, new { @class = "btn btn-primary" }) |
             @Html.ActionLink("Excluir", "Delete", new { id=item.TaxId }, new { @class = "btn btn-danger" })
         </td>
     </tr>

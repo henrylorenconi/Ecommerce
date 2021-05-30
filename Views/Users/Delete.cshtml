@@ -3,13 +3,23 @@
 @{
     ViewBag.Title = "Delete";
 }
-
+<br />
 <h2>Excluir Usuário</h2>
-
-<h3>Deseja excluir esse usuário permanentemente?</h3>
+<br />
+<h3>Deseja excluir este usuário permanentemente?</h3>
 <div>
+    <h4>Esta ação não poderá ser desfeita!</h4>
+    <br />
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Departaments.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departaments.Name)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Cities.Name)
         </dt>
@@ -24,14 +34,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Company.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Departaments.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Departaments.Name)
         </dd>
 
         <dt>
@@ -84,12 +86,13 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
+        <br />
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Cancelar", "Index")
+            <input type="submit" value="Excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-primary" })
         </div>
     }
 </div>

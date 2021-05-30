@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<ECommerce.Models.State>
 
 @{
-    ViewBag.Title = "Estados";
+    ViewBag.Title = "Estados de Pedidos";
 }
-
-<h2>Estados</h2>
-
+<br />
+<h2>Estados de Pedidos</h2>
+<br />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Cadastrar Status", "Create", null, new { @class = "btn btn-primary btn-lg" })
+    <br /><br />
 </p>
 <table class="table">
     <tr>
@@ -23,9 +24,9 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StateId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StateId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StateId })
+            @Html.ActionLink("Editar", "Edit", new { id=item.StateId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.StateId }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.StateId }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

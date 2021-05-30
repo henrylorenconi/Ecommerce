@@ -1,13 +1,12 @@
 ﻿@model ECommerce.Models.State
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes sobre o Status do Pedido";
 }
-
-<h2>Details</h2>
-
+<br />
+<h2>Detalhes sobre o Status do Pedido</h2>
+<br />
 <div>
-    <h4>State</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -21,6 +20,8 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.StateId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <br />
+    @Html.ActionLink("Editar", "Edit", new { id = Model.StateId }, new { @class = "btn btn-info" }) |
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary" })
+    <br />
 </p>

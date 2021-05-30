@@ -1,11 +1,11 @@
 ﻿@model ECommerce.Models.State
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Cadastrar Status";
 }
-
+<br />
 <h2>Create</h2>
-
+<br />
 
 @using (Html.BeginForm()) 
 {
@@ -25,14 +25,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Salvar" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
-
+<br /><br />
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger" })
 </div>
 
 @section Scripts {

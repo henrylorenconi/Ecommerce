@@ -16,12 +16,14 @@ namespace ECommerce.Models
         [Display(Name = "Data")]
         [Required(ErrorMessage = "O campo Data deve ser preenchido!")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
+        [Display(Name = "Anotações")]
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
 
+        [Display(Name = "Detalhes")]
         public List<OrderDetailTmp> Details { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]

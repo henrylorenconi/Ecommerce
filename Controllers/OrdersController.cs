@@ -14,6 +14,41 @@ namespace ECommerce.Controllers
 
         private EcommerceContext db = new EcommerceContext();
 
+
+        //ADD Produtos GET
+        public ActionResult AddProduct()
+        {
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            ViewBag.ProductId = new SelectList(CombosHelper.GetProducts(user.CompanyId), "ProductId", "Description");
+            return View();
+        }
+
+        //ADD Produtos POST
+        [HttpPost]
+        public ActionResult AddProduct(AddProductView view)
+        {
+            if (ModelState.IsValid)
+            {
+                var product = db.Products.Find(view.ProductId);
+                var orderDetailTmps = new OrderDetailTmp
+                {
+                    Description = product.Description,
+                    Price = product.Price,
+                    ProductId = product.ProductId,
+                    Quantity = view.Quantity,
+                    TaxRate = product.Tax.Rate,
+                    UserName = User.Identity.Name,
+                };
+
+                db.OrderDetailTmp.Add(orderDetailTmps);
+                db.SaveChanges();
+                return RedirectToAction("Create");
+            }
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            ViewBag.ProductId = new SelectList(CombosHelper.GetProducts(user.CompanyId), "ProductId", "Description");
+            return View();
+        }
+
         // GET: Orders
         public ActionResult Index()
         {

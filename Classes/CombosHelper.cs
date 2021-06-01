@@ -86,6 +86,20 @@ namespace ECommerce.Classes
 
             return customer = customer.OrderBy(c => c.FirstName).ThenBy(c => c.LastName).ToList();
         }
+
+        public static List<Product> GetProducts(int companyId)
+        {
+
+            var product = db.Products.Where(c => c.CompanyId == companyId).ToList();
+            product.Add(new Product
+            {
+                ProductId = 0,
+                Description = "[Selecione um Produto!]"
+            });
+
+            return product = product.OrderBy(c => c.Description).ToList();
+        }
+
         public void Dispose()
         {
             db.Dispose();

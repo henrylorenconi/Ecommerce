@@ -1,8 +1,8 @@
 ﻿@model ECommerce.Models.NewOrderView
 
-@{ 
+@{
     ViewBag.Title = "Create";
- }
+}
 
 <h2>Nova Ordem</h2>
 
@@ -63,12 +63,85 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
+<h4>Produtos Adicionados</h4>
+<hr />
 
-@if(Model.Details.Count == 0)
+@if (Model.Details.Count == 0)
 {
     <h5>Não existe nenhum detalhe</h5>
 }
 else
 {
-    <h5>Os detalhes vao ficar aqui</h5>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].Product.Image)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].Description)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].TaxRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details[0].Value)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Details)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Product.Image))
+                    {
+                        <img src="@Url.Content(item.Product.Image)" alt="Image" style="width:40px;height:40px;max-width: 100%; height: auto;" />
+                    }
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.ActionLink("Excluir", "DeleteProduct", new { id = item.ProductId }, new { @class = "btn btn-danger", onclick = "return confirm('Deseja excluir o Produto?')" })
+                </td>
+            </tr>
+        }
+            <tr>
+                <td colspan="4" align="right">
+                    <strong>Total</strong>
+                </td>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => Model.TotalQuantity)</strong>
+                </td>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => Model.TotalValue)</strong>
+                </td>
+
+            </tr>
+        
+
+    </table>
+
 }

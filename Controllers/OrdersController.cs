@@ -27,26 +27,54 @@ namespace ECommerce.Controllers
         [HttpPost]
         public ActionResult AddProduct(AddProductView view)
         {
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+
             if (ModelState.IsValid)
             {
-                var product = db.Products.Find(view.ProductId);
-                var orderDetailTmps = new OrderDetailTmp
+                var orderDetailTmps = db.OrderDetailTmp.Where(odt => odt.UserName == User.Identity.Name && odt.ProductId == view.ProductId).FirstOrDefault();
+                if (orderDetailTmps == null)
                 {
-                    Description = product.Description,
-                    Price = product.Price,
-                    ProductId = product.ProductId,
-                    Quantity = view.Quantity,
-                    TaxRate = product.Tax.Rate,
-                    UserName = User.Identity.Name,
-                };
+                    var product = db.Products.Find(view.ProductId);
+                    orderDetailTmps = new OrderDetailTmp
+                    {
+                        Description = product.Description,
+                        Price = product.Price,
+                        ProductId = product.ProductId,
+                        Quantity = view.Quantity,
+                        TaxRate = product.Tax.Rate,
+                        UserName = User.Identity.Name,
+                    };
 
-                db.OrderDetailTmp.Add(orderDetailTmps);
+                    db.OrderDetailTmp.Add(orderDetailTmps);
+                }
+                else {
+                    orderDetailTmps.Quantity += view.Quantity;
+                    db.Entry(orderDetailTmps).State = EntityState.Modified;
+                }
                 db.SaveChanges();
                 return RedirectToAction("Create");
             }
-            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
             ViewBag.ProductId = new SelectList(CombosHelper.GetProducts(user.CompanyId), "ProductId", "Description");
             return View();
+        }
+
+        //DELETAR PRODUTOS
+
+        public ActionResult DeleteProduct(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var orderDetailTmps = db.OrderDetailTmp.Where(odt => odt.UserName == User.Identity.Name && odt.ProductId == id).FirstOrDefault();
+            if (orderDetailTmps == null)
+            {
+                return HttpNotFound();
+            }
+            db.OrderDetailTmp.Remove(orderDetailTmps);
+            db.SaveChanges();
+            return RedirectToAction("Create");
         }
 
         // GET: Orders
@@ -90,18 +118,21 @@ namespace ECommerce.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrderId,CustomerId,StateId,Date,Remarks")] Orders orders)
+        public ActionResult Create(NewOrderView view)
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(orders);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var Response = MovementsHelper.NewOrder(view, User.Identity.Name);
+                if (Response.Succeeded) {
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, Response.Message);
             }
 
             var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
             ViewBag.CustomerId = new SelectList(CombosHelper.GetCustomer(user.CompanyId), "CustomerId", "FullName");
-            return View(orders);
+            return View(view);
         }
 
         // GET: Orders/Edit/5

@@ -43,8 +43,8 @@ namespace ECommerce.Models
         public int CategoryId { get; set; }
 
         [Display(Name = "Estoque")]
-        //[DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
-        public double Stock { get { return Inventory.Sum(i => i.Stock); } }
+        [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
+        public double Stock { get { return 0;/*Inventory.Sum(i => i.Stock);*/} }
 
         [Display(Name = "Valor")]
         [Required(ErrorMessage = "O campo de valor é obrigatório!")]

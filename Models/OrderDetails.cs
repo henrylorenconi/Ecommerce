@@ -25,6 +25,7 @@ namespace ECommerce.Models
         [Required(ErrorMessage = "O campo de Imposto deve ser preenchido!")]
         [Range(0, double.MaxValue, ErrorMessage = "Selecione o valor da taxa!")]
         [Display(Name = "Imposto")]
+        [DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = false)]
         public double TaxRate { get; set; }
 
         [Required(ErrorMessage = "O campo de Valor é obrigatório!")]

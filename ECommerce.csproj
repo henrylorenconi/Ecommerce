@@ -180,6 +180,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Classes\CombosHelper.cs" />
+    <Compile Include="Classes\DBHelper.cs" />
     <Compile Include="Classes\FilesHelper.cs" />
     <Compile Include="Classes\MailHelper.cs" />
     <Compile Include="Classes\MovementsHelper.cs" />

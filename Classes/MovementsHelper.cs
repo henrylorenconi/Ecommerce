@@ -16,8 +16,17 @@ namespace ECommerce.Classes
 
         public static Response NewOrder(NewOrderView view, string UserName)
         {
-            using (var transaction = db.Database.BeginTransaction()) { 
-                
+            using (var transaction = db.Database.BeginTransaction()) 
+            {
+                var user = db.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+                var order = new Orders
+                {
+                    CompanyId = user.CompanyId,
+                    CustomerId = view.CustomerId,
+                    Date = view.Date,
+                    Remarks = view.Remarks,
+                    StateId = 
+                };
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using ECommerce.Models;
 using System;
+using System.Linq;
 
 namespace ECommerce.Classes
 {
@@ -22,13 +23,38 @@ namespace ECommerce.Classes
                     Succeeded = false
                 };
 
-                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException.Message.Contains("_Index")) 
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException.Message.Contains("_Index"))
                 {
                     response.Message = "O registro esta duplicado!";
                 }
-                throw;
+                else if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException.Message.Contains("REFERENCE"))
+                {
+                    response.Message = "Não é possivel remover o registro, porque existem dados ralcionados a ele!";
+                }
+                else 
+                {
+                    response.Message = ex.Message;             
+                }
+                return response;
             }
         }
 
+        public static int GetState(string description, EcommerceContext db)
+        {
+            var state = db.States.Where(s => s.Description == description).FirstOrDefault();
+            if (state == null) 
+            {
+                state = new State
+                {
+                    Description = description
+                };
+
+                db.States.Add(state);
+                db.SaveChanges();
+            
+            }
+
+            return state.StateId;
+        }
     }
 }

@@ -132,6 +132,7 @@ namespace ECommerce.Controllers
 
             var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
             ViewBag.CustomerId = new SelectList(CombosHelper.GetCustomer(user.CompanyId), "CustomerId", "FullName");
+            view.Details = db.OrderDetailTmp.Where(odt => odt.UserName == User.Identity.Name).ToList();
             return View(view);
         }
 

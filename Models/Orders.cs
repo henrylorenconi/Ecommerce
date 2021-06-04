@@ -26,7 +26,7 @@ namespace ECommerce.Models
         public int StateId { get; set; }
 
         [Required(ErrorMessage = "O campo de Data é obrigatório!")]
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         [Display(Name = "Data")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }

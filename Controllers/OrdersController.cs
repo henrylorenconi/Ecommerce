@@ -122,12 +122,13 @@ namespace ECommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Response = MovementsHelper.NewOrder(view, User.Identity.Name);
-                if (Response.Succeeded) {
+                var response = MovementsHelper.NewOrder(view, User.Identity.Name);
+                if (response.Succeeded) 
+                {
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError(string.Empty, Response.Message);
+                ModelState.AddModelError(string.Empty, response.Message);
             }
 
             var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();

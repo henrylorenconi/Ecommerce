@@ -24,10 +24,10 @@ namespace ECommerce.Models
         [Range(1, double.MaxValue, ErrorMessage = "Você deve selecionar um estado para o pedido!")]
         [Display(Name = "Estado do pedido")]
         public int StateId { get; set; }
-
+        
+        [Display(Name = "Data")]
         [Required(ErrorMessage = "O campo de Data é obrigatório!")]
         //[DataType(DataType.Date)]
-        [Display(Name = "Data")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 

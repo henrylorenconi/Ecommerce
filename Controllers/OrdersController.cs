@@ -19,7 +19,7 @@ namespace ECommerce.Controllers
         public ActionResult AddProduct()
         {
             var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
-            ViewBag.ProductId = new SelectList(CombosHelper.GetProducts(user.CompanyId), "ProductId", "Description");
+            ViewBag.ProductId = new SelectList(CombosHelper.GetProducts(user.CompanyId, true), "ProductId", "Description");
             return PartialView();
         }
 
@@ -159,13 +159,17 @@ namespace ECommerce.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderId,CustomerId,StateId,Date,Remarks")] Orders orders)
+        public ActionResult Edit(Orders orders)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(orders).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var responseSaveImg = DBHelper.SaveChanges(db);
+                if (responseSaveImg.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.AddModelError(string.Empty, responseSaveImg.Message);
             }
             var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
             ViewBag.CustomerId = new SelectList(CombosHelper.GetCustomer(user.CompanyId), "CustomerId", "FullName");
@@ -194,8 +198,13 @@ namespace ECommerce.Controllers
         {
             Orders orders = db.Orders.Find(id);
             db.Orders.Remove(orders);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var responseSaveImg = DBHelper.SaveChanges(db);
+            if (responseSaveImg.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError(string.Empty, responseSaveImg.Message);
+            return View(orders);
         }
 
         protected override void Dispose(bool disposing)

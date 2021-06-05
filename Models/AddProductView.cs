@@ -11,7 +11,7 @@ namespace ECommerce.Models
         //AddProductView
         [Required(ErrorMessage = "O campo {0} é requerido")]
         [Range(1, double.MaxValue, ErrorMessage = "You must select a {0}")]
-        [Display(Name = "Produto")]
+        [Display(Name = "Product", Prompt = "[Selecione um Produto]")]
         public int ProductId { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é requerido")]

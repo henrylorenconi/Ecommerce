@@ -33,7 +33,7 @@ namespace ECommerce.Classes
                 }
                 else 
                 {
-                    response.Message = ex.Message;             
+                    response.Message = "Não foi possível salvar os dados";             
                 }
                 return response;
             }

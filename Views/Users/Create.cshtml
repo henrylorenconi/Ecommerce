@@ -60,6 +60,7 @@
                 <span class="btn btn-default btn-file">
                     @Html.TextBoxFor(modelo => modelo.PhotoFile, new { type = "file" })
                 </span>
+                @Html.ValidationMessageFor(model => model.PhotoFile, "", new { @class = "text-danger" })
             </div>
         </div>
 

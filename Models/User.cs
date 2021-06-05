@@ -43,6 +43,7 @@ namespace ECommerce.Models
         [Display(Name = "Endereço")]
         public String Address { get; set; }
 
+        [Required(ErrorMessage = "O campo de Imagem é obrigatório!")]
         [Display(Name = "Imagem")]
         [DataType(DataType.ImageUrl)]
         public String Photo { get; set; }

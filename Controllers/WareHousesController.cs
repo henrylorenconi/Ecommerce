@@ -72,8 +72,13 @@ namespace ECommerce.Controllers
             if (ModelState.IsValid)
             {
                 db.WareHouses.Add(wareHouse);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var responseSave = DBHelper.SaveChanges(db);
+                if (responseSave.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, responseSave.Message);
             }
 
             ViewBag.CityId = new SelectList(CombosHelper.GetCities(wareHouse.DepartamentsId), "CityId", "Name", wareHouse.CityId);
@@ -108,9 +113,15 @@ namespace ECommerce.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(wareHouse).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var responseSave = DBHelper.SaveChanges(db);
+                if (responseSave.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, responseSave.Message);
             }
+
             ViewBag.CityId = new SelectList(CombosHelper.GetCities(wareHouse.DepartamentsId), "CityId", "Name", wareHouse.CityId);
             ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name", wareHouse.DepartamentsId);
             return View(wareHouse);
@@ -138,8 +149,14 @@ namespace ECommerce.Controllers
         {
             WareHouse wareHouse = db.WareHouses.Find(id);
             db.WareHouses.Remove(wareHouse);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var responseSave = DBHelper.SaveChanges(db);
+            if (responseSave.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError(string.Empty, responseSave.Message);
+            return View(wareHouse);
         }
 
         protected override void Dispose(bool disposing)

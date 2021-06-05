@@ -58,7 +58,6 @@ namespace ECommerce.Controllers
                 if (responseSave.Succeeded) 
                 {
                     UsersHelper.CreateUserASP(user.UserName, "user");
-                    return RedirectToAction("Index");
                 }
 
                 ModelState.AddModelError(string.Empty, responseSave.Message);               

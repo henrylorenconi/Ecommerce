@@ -21,10 +21,10 @@ namespace ECommerce.Classes
             return dep = dep.OrderBy(d => d.Name).ToList();
 }
 
-        public static List<City> GetCities()
+        public static List<City> GetCities(int departamentId)
         {
 
-            var dep = db.Cities.ToList();
+            var dep = db.Cities.Where(c => c.DepartamentsId == departamentId).ToList();
             dep.Add(new City
             {
                 CityId = 0,

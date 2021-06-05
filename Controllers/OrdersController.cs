@@ -20,7 +20,7 @@ namespace ECommerce.Controllers
         {
             var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
             ViewBag.ProductId = new SelectList(CombosHelper.GetProducts(user.CompanyId), "ProductId", "Description");
-            return View();
+            return PartialView();
         }
 
         //ADD Produtos POST
@@ -55,7 +55,7 @@ namespace ECommerce.Controllers
                 return RedirectToAction("Create");
             }
             ViewBag.ProductId = new SelectList(CombosHelper.GetProducts(user.CompanyId), "ProductId", "Description");
-            return View();
+            return PartialView();
         }
 
         //DELETAR PRODUTOS

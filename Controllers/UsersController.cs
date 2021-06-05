@@ -54,8 +54,14 @@ namespace ECommerce.Controllers
             if (ModelState.IsValid)
             {
                 db.Users.Add(user);
-                db.SaveChanges();
-                UsersHelper.CreateUserASP(user.UserName, "user");
+                var responseSave = DBHelper.SaveChanges(db);
+                if (responseSave.Succeeded) 
+                {
+                    UsersHelper.CreateUserASP(user.UserName, "user");
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, responseSave.Message);               
 
                 if (user.PhotoFile != null)
                 {
@@ -69,11 +75,16 @@ namespace ECommerce.Controllers
                         pic = string.Format("{0}/{1}", folder, file);
                         user.Photo = pic;
                         db.Entry(user).State = EntityState.Modified;
-                        db.SaveChanges();
+                        var responseSaveImg = DBHelper.SaveChanges(db);
+                        if (responseSaveImg.Succeeded)
+                        {
+                            return RedirectToAction("Index");
+                        }
+                        ModelState.AddModelError(string.Empty, responseSaveImg.Message);
                     }
 
                 }
-                return RedirectToAction("Index");
+
             }
 
             ViewBag.CityId = new SelectList(CombosHelper.GetCities(user.DepartamentsId), "CityId", "Name", user.CityId);
@@ -131,9 +142,17 @@ namespace ECommerce.Controllers
                     UsersHelper.UpdateUserName(currentUser.UserName, user.UserName);
                 }
                 db2.Dispose();
+                
                 db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var responseSave = DBHelper.SaveChanges(db);
+                if (responseSave.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, responseSave.Message);
+
             }
             ViewBag.CityId = new SelectList(CombosHelper.GetCities(user.DepartamentsId), "CityId", "Name", user.CityId);
             ViewBag.CompanyId = new SelectList(CombosHelper.GetCompanys(), "CompanyId", "Name", user.CompanyId);
@@ -163,9 +182,16 @@ namespace ECommerce.Controllers
         {
             User user = db.Users.Find(id);
             db.Users.Remove(user);
-            db.SaveChanges();
-            UsersHelper.DeleteUser(user.UserName);
-            return RedirectToAction("Index");
+
+            var responseSave = DBHelper.SaveChanges(db);
+            if (responseSave.Succeeded)
+            {
+                UsersHelper.DeleteUser(user.UserName);
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError(string.Empty, responseSave.Message);
+            return View(user);
         }
 
         protected override void Dispose(bool disposing)

@@ -6,7 +6,7 @@ namespace ECommerce.Classes
 {
     public class DBHelper
     {
-        private static Response SaveChanges(EcommerceContext db)
+        public static Response SaveChanges(EcommerceContext db)
         {
             try
             {

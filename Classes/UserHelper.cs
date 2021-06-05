@@ -16,7 +16,7 @@ namespace ECommerce.Classes
             private static EcommerceContext db = new EcommerceContext();
 
             //Deletar Usuários
-            public static bool DeleteUser(string userName) 
+            public static bool DeleteUser(string userName, string roleName) 
             {
                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
                 var userASP = userManager.FindByEmail(userName);
@@ -24,7 +24,7 @@ namespace ECommerce.Classes
                 {
                     return false;
                 }
-                var response = userManager.Delete(userASP);
+                var response = userManager.RemoveFromRoles(userASP.Id, roleName);
                 return response.Succeeded;
             }
 
@@ -71,16 +71,21 @@ namespace ECommerce.Classes
                 userManager.AddToRole(userASP.Id, "Admin");
             }
             public static void CreateUserASP(string email, string roleName)
-            {
+            {            
                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
-
-                var userASP = new ApplicationUser
+                var userASP = userManager.FindByEmail(email);
+                if (userASP == null)
                 {
-                    Email = email,
-                    UserName = email,
-                };
 
-                userManager.Create(userASP, email);
+                    userASP = new ApplicationUser
+                    {
+                        Email = email,
+                        UserName = email,
+                    };
+
+                    userManager.Create(userASP, email);
+                }
+
                 userManager.AddToRole(userASP.Id, roleName);
             }
 

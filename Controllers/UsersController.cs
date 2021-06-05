@@ -58,31 +58,27 @@ namespace ECommerce.Controllers
                 if (responseSave.Succeeded) 
                 {
                     UsersHelper.CreateUserASP(user.UserName, "user");
-                }
-
-                ModelState.AddModelError(string.Empty, responseSave.Message);               
-
-                if (user.PhotoFile != null)
-                {
-                    var pic = string.Empty;
-                    var folder = "~/Content/Users";
-                    var file = string.Format("{0}.jpg", user.UserId);
-
-                    var response = FilesHelper.UploadPhoto(user.PhotoFile, folder, file);
-                    if (response == true)
+                    if (user.PhotoFile != null)
                     {
-                        pic = string.Format("{0}/{1}", folder, file);
-                        user.Photo = pic;
-                        db.Entry(user).State = EntityState.Modified;
-                        var responseSaveImg = DBHelper.SaveChanges(db);
-                        if (responseSaveImg.Succeeded)
+                        var pic = string.Empty;
+                        var folder = "~/Content/Users";
+                        var file = string.Format("{0}.jpg", user.UserId);
+
+                        var response = FilesHelper.UploadPhoto(user.PhotoFile, folder, file);
+                        if (response == true)
                         {
-                            return RedirectToAction("Index");
+                            pic = string.Format("{0}/{1}", folder, file);
+                            user.Photo = pic;
+                            db.Entry(user).State = EntityState.Modified;
+                            db.SaveChanges();
                         }
-                        ModelState.AddModelError(string.Empty, responseSaveImg.Message);
+
                     }
 
+                    return RedirectToAction("Index");
                 }
+
+                ModelState.AddModelError(string.Empty, responseSave.Message);                          
 
             }
 
@@ -185,7 +181,7 @@ namespace ECommerce.Controllers
             var responseSave = DBHelper.SaveChanges(db);
             if (responseSave.Succeeded)
             {
-                UsersHelper.DeleteUser(user.UserName);
+                UsersHelper.DeleteUser(user.UserName, "User");
                 return RedirectToAction("Index");
             }
 

@@ -28,7 +28,7 @@ namespace ECommerce.Models
         [Display(Name = "Data")]
         [Required(ErrorMessage = "O campo de Data é obrigatório!")]
         //[DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
         [DataType(DataType.MultilineText)]

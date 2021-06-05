@@ -16,7 +16,7 @@ namespace ECommerce.Models
         [Display(Name = "Data")]
         [Required(ErrorMessage = "O campo Data deve ser preenchido!")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
         [Display(Name = "Anotações")]

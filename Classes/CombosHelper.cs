@@ -76,8 +76,17 @@ namespace ECommerce.Classes
 
         public static List<Customer> GetCustomer(int companyId)
         {
+            var qry = (from cu in db.Customers
+                       join cc in db.CompanyCustomers on cu.CustomerId equals cc.CustomerId
+                       join co in db.Companies on cc.CompanyId equals co.CompanyId
+                       where co.CompanyId == companyId
+                       select new { cu }).ToList();
 
-            var customer = db.Customers.Where(c => c.CompanyId == companyId).ToList();
+
+            var customer = new List<Customer>();
+            foreach(var  item in qry) {
+                customer.Add(item.cu);
+            }
             customer.Add(new Customer
             {
                 CustomerId = 0,

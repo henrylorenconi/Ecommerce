@@ -1,5 +1,7 @@
 ﻿using ECommerce.Classes;
 using ECommerce.Models;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -17,8 +19,17 @@ namespace ECommerce.Controllers
         public ActionResult Index()
         {
             var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
-            var customers = db.Customers.Where(c => c.CompanyId == user.CompanyId).Include(c => c.City).Include(c => c.Department);
-            return View(customers.ToList());
+            var qry = (from cu in db.Customers
+                       join cc in db.CompanyCustomers on cu.CustomerId equals cc.CustomerId
+                       join co in db.Companies on cc.CompanyId equals co.CompanyId
+                       where co.CompanyId == user.CompanyId
+                       select new { cu }).ToList();
+            var customer = new List<Customer>();
+            foreach (var item in qry)
+            {
+                customer.Add(item.cu);
+            }
+            return View(customer.ToList());
         }
 
         // GET: Customers/Details/5
@@ -43,14 +54,8 @@ namespace ECommerce.Controllers
 
             ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name");
 
-            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
-
-            var customer = new Customer
-            {
-                CompanyId = user.CompanyId
-            };
-
-            return View(customer);
+          
+            return View();
         }
 
         // POST: Customers/Create
@@ -62,14 +67,45 @@ namespace ECommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
-                db.SaveChanges();
-                UsersHelper.CreateUserASP(customer.UserName, "Customer");
-                return RedirectToAction("Index");
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        db.Customers.Add(customer);
+                        var responseSave = DBHelper.SaveChanges(db);
+                        if (!responseSave.Succeeded)
+                        {
+                            ModelState.AddModelError(string.Empty, responseSave.Message);
+                            transaction.Rollback();
+                            ViewBag.CityId = new SelectList(CombosHelper.GetCities(customer.DepartamentsId), "CityId", "Name");
+                            ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name");
+                            return View(customer);
+                        }
+
+                        UsersHelper.CreateUserASP(customer.UserName, "Customer");
+                        
+
+                        //salvar os dados em company customer
+                        var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+                        var companyCustomer = new CompanyCustomer()
+                        {
+                            CompanyId = user.CompanyId,
+                            CustomerId = customer.CustomerId
+                        };
+
+                        db.CompanyCustomers.Add(companyCustomer);
+                        db.SaveChanges();
+                        transaction.Commit();
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError(string.Empty, ex.Message);
+                        transaction.Rollback();
+                    }
+                }
             }
-
             ViewBag.CityId = new SelectList(CombosHelper.GetCities(customer.DepartamentsId), "CityId", "Name");
-
             ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name");
             return View(customer);
         }
@@ -131,12 +167,28 @@ namespace ECommerce.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
-            db.SaveChanges();
-            UsersHelper.DeleteUser(user.UserName, "Customer");
-            return RedirectToAction("Index");
+            var customer = db.Customers.Find(id);
+            var companyCustomer = db.CompanyCustomers.Where(cc => cc.CompanyId == user.CompanyId && cc.CustomerId == customer.CustomerId).FirstOrDefault();
+
+            using (var transaction = db.Database.BeginTransaction())
+            {
+
+                db.CompanyCustomers.Remove(companyCustomer);
+                db.Customers.Remove(customer);
+
+                var responseSave = DBHelper.SaveChanges(db);
+                if (responseSave.Succeeded)
+                {
+                    transaction.Commit();               
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, responseSave.Message);
+                transaction.Rollback();
+                return View("customer");
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -12,15 +12,9 @@ namespace ECommerce.Models
         [Key]
         public int CustomerId { get; set; }
 
-        [Required(ErrorMessage = "O campo companhia é obrigatório")]
-        [Range(1, double.MaxValue, ErrorMessage = "Você deve selecionar a companhia!")]
-        [Display(Name = "Companhia")]
-        public int CompanyId { get; set; }
-
         [Required(ErrorMessage = "O campo E-mail é requerido!")]
         [MaxLength(256, ErrorMessage = "O campo deve conter no máximo 256 caracteres!")]
         [Display(Name = "E-Mail")]
-        [Index("Customer_UserName_Index", IsUnique = true)]
         [DataType(DataType.EmailAddress)]
         public string UserName { get; set; }
 
@@ -62,9 +56,9 @@ namespace ECommerce.Models
 
         public virtual City City { get; set; }
 
-        public virtual Company Company { get; set; }
-
         public virtual ICollection<Orders> Orders { get; set; }
+
+        public virtual ICollection<CompanyCustomer> CompanyCustomers { get; set; }
 
     }
 }

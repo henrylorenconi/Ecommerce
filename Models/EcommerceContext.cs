@@ -44,5 +44,7 @@ namespace ECommerce.Models
         public System.Data.Entity.DbSet<ECommerce.Models.OrderDetails> OrderDetails { get; set; }
 
         public System.Data.Entity.DbSet<ECommerce.Models.OrderDetailTmp> OrderDetailTmp { get; set; }
+
+        public System.Data.Entity.DbSet<ECommerce.Models.CompanyCustomer> CompanyCustomers { get; set; }
     }
 }

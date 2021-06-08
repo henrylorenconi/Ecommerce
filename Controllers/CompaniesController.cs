@@ -124,8 +124,12 @@ namespace ECommerce.Controllers
                 }
 
                 db.Entry(company).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var responseSave = DBHelper.SaveChanges(db);
+                if (responseSave.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.AddModelError(string.Empty, responseSave.Message);
             }
             ViewBag.CityId = new SelectList(CombosHelper.GetCities(company.DepartamentsId), "CityId", "Name", company.CityId);
             ViewBag.DepartamentsId = new SelectList(CombosHelper.GetDepartaments(), "DepartamentsId", "Name", company.DepartamentsId);

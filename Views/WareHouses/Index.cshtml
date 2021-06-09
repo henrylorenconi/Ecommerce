@@ -13,10 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Cities.Name)
+            @Html.DisplayNameFor(model => model.Departaments.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Departaments.Name)
+            @Html.DisplayNameFor(model => model.Cities.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -31,28 +31,28 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cities.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Departaments.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.WareHouseId }, new { @class = "btn btn-info" }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.WareHouseId }, new { @class = "btn btn-primary" }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.WareHouseId }, new { @class = "btn btn-danger" })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Departaments.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Cities.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Phone)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Address)
+    </td>
+    <td>
+        @Html.ActionLink("Editar", "Edit", new { id = item.WareHouseId }, new { @class = "btn btn-info" }) |
+        @Html.ActionLink("Detalhes", "Details", new { id = item.WareHouseId }, new { @class = "btn btn-primary" }) |
+        @Html.ActionLink("Excluir", "Delete", new { id = item.WareHouseId }, new { @class = "btn btn-danger" })
+    </td>
+</tr>
 }
     
 </table>

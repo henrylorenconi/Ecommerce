@@ -11,6 +11,7 @@
     <h4>Esta ação não poderá ser desfeita!</h4>
     <br />
     <hr />
+    @Html.HiddenFor(model => model.Image)
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Category.Description)
@@ -19,7 +20,7 @@
         <dd>
             @Html.DisplayFor(model => model.Category.Description)
         </dd>
-
+        <br />
         <dt>
             @Html.DisplayNameFor(model => model.Company.Name)
         </dt>
@@ -27,7 +28,7 @@
         <dd>
             @Html.DisplayFor(model => model.Company.Name)
         </dd>
-
+        <br />
         <dt>
             @Html.DisplayNameFor(model => model.Tax.Description)
         </dt>
@@ -35,7 +36,7 @@
         <dd>
             @Html.DisplayFor(model => model.Tax.Description)
         </dd>
-
+        <br />
         <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
@@ -43,7 +44,7 @@
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-
+        <br />
         <dt>
             @Html.DisplayNameFor(model => model.Barcode)
         </dt>
@@ -51,7 +52,7 @@
         <dd>
             @Html.DisplayFor(model => model.Barcode)
         </dd>
-
+        <br />
         <dt>
             @Html.DisplayNameFor(model => model.Price)
         </dt>
@@ -59,15 +60,7 @@
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-
+        <br />
         <dt>
             @Html.DisplayNameFor(model => model.Remarks)
         </dt>

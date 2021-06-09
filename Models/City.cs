@@ -14,9 +14,9 @@ namespace ECommerce.Models
         [Display(Name = "Cidade")]
         public String Name { get; set; }
 
-        [Required(ErrorMessage = "O campo nome é obrigatório!")]
-        [Display(Name = "Departamento")]
-        [Range(1, double.MaxValue, ErrorMessage = "Selecione um departamento!")]
+        [Required(ErrorMessage = "O campo Região é obrigatório!")]
+        [Display(Name = "Região")]
+        [Range(1, double.MaxValue, ErrorMessage = "Selecione uma Região!")]
         public int DepartamentsId { get; set; }
 
         public virtual Departaments Departament { get; set; }

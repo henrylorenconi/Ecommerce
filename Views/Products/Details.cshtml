@@ -6,92 +6,90 @@
 <br />
 <h2>Detalhes do Produto</h2>
 <br />
-<div class="form-group">
-    <div class="col-md-6">
-        <div>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Category.Description)
-                </dt>
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Description)
+        </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Category.Description)
-                </dd>
-                <br />
-                <dt>
-                    @Html.DisplayNameFor(model => model.Company.Name)
-                </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category.Description)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Company.Name)
+        </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Company.Name)
-                </dd>
-                <br />
-                <dt>
-                    @Html.DisplayNameFor(model => model.Tax.Description)
-                </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Company.Name)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Tax.Description)
+        </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Tax.Description)
-                </dd>
-                <br />
-                <dt>
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tax.Description)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-                <br />
-                <dt>
-                    @Html.DisplayNameFor(model => model.Barcode)
-                </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Barcode)
+        </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Barcode)
-                </dd>
-                <br />
-                <dt>
-                    @Html.DisplayNameFor(model => model.Price)
-                </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Barcode)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Price)
-                </dd>
-                <br />
-                <dt>
-                    @Html.DisplayNameFor(model => model.Image)
-                </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
 
-                <dd>
-                    @if (!string.IsNullOrEmpty(Model.Image))
-                    {
-                        <img src="@Url.Content(Model.Image)" alt="Image" style="width:65px;height:65px;max-width: 100%; height: auto;" />
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.Image))
+            {
+                <img src="@Url.Content(Model.Image)" alt="Image" style="width:65px;height:65px;max-width: 100%; height: auto;" />
 
-                    }
-                </dd>
-                <br />
-                <dt>
-                    @Html.DisplayNameFor(model => model.Remarks)
-                </dt>
+            }
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Remarks)
-                </dd>
-                <p>
-                    <br />
-                    @Html.ActionLink("Editar", "Edit", new { id = Model.ProductId }, new { @class = "btn btn-info" }) |
-                    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary" })
-                    <br />
-                </p>
-            </dl>
-        </div>
-    </div>
-    <div class="col-md-6">
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+        <p>
+            <br />
+            @Html.ActionLink("Editar", "Edit", new { id = Model.ProductId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary" })
+            <br />
+        </p>
+    </dl>
+</div>
+
+<!--<div class="col-md-6">
         <hr />
         <h4>Estoque</h4>
         <hr />
-        @if (Model.Inventory.Count == 0)
+        if (Model.Inventory.Count == 0)
         {
             <h5>Não há estoque do produto!</h5>
         }
@@ -108,15 +106,15 @@
             </th>
         </tr>
 
-        @foreach (var item in Model.Inventory.ToList())
+        foreach (var item in Model.Inventory.ToList())
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.WareHouse.Name)
+                    Html.DisplayFor(modelItem => item.WareHouse.Name)
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Stock)
+                    Html.DisplayFor(modelItem => item.Stock)
                 </td>
             </tr>
         }
@@ -125,11 +123,10 @@
                 <strong>Total</strong>
             </td>
             <td>
-                <strong>@Html.DisplayFor(model => model.Stock)</strong>
+                <strong>Html.DisplayFor(model => model.Stock)</strong>
             </td>
         </tr>
     </table>
         }
     </div>
-</div>
-
+</div>-->

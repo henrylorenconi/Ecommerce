@@ -11,9 +11,22 @@
         @if (Model != null && !string.IsNullOrEmpty(Model.Company.Logo))
         {
             <br />
-            <img src="@Url.Content(Model.Company.Logo)" alt="Image" style="width:1000px;height:500px;max-width: 100%;" />
-            <br /><br />
+            <img src="@Url.Content(Model.Company.Logo)" alt="Image" style="width:1000px;height:500px;max-width: 100%;" /><br /><br />}
+        else if (User.IsInRole("Admin"))
+        {
+            <br /><br /><br /><br /><br />
+            <h2>Você esta conectado com o usuário de Admin!</h2>
+            <br /><br /><br /><br /><br /><br /><br />
         }
+        else
+        {
+            <br /><br /><br />
+            <h2>Você não esta conectado!</h2>
+            <br />
+            <h2>Faça Logon com o seu usuário para poder utilizar o sistema</h2>
+            <br /><br /><br /><br />
+        }
+
     </div>
 </div>
 
